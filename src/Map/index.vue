@@ -1,11 +1,18 @@
 <template>
     <!-- <div class="task-list" v-for="task in tasks"> -->
         <!-- <task :task="task" :store="store"></task> -->
-        <div class="mobile-map">
+        <!-- <div class="mobile-map">
         
         <div id='map'></div>
 
+        </div> -->
+        <div class="content">
+        <div class="inner">
+            
+            <div id='map-large'></div>
+          
         </div>
+    </div>
 </template>
 <script>
     import store from '../vuex/store.js'
@@ -39,7 +46,7 @@
             mapboxgl.accessToken = 'pk.eyJ1IjoicnJsYXJhIiwiYSI6IjNjSlJmUkkifQ.PlJc5PGK-7-EDMmsfqYKfg';
             
             map = new mapboxgl.Map({
-                container: 'map',
+                container: 'map-large',
                 style: 'mapbox://styles/mapbox/streets-v8',
                 center: [-122.4093842,47.6011062],
                 zoom: 10
@@ -130,11 +137,11 @@
     
 }
 
-/*#map { 
+#map-large { 
   position:relative; 
   width:100%;
-  height: 400px;
-  }*/
+  height: 100%;
+  }
 
     
 </style>

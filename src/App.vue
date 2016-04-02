@@ -11,16 +11,19 @@
                     <!-- <div><a v-link="{ path: '/list'}">List</a></div>
                     <div><a v-link="{ path: '/map'}">Map</a></div> -->
                     <button class="mdl-button mdl-js-button">
-                      <a v-link="{ path: '/home'}"><i class="material-icons">home</i></a>
+                      <a ><i class="material-icons">home</i></a>
                     </button>
-                    <button class="mdl-button mdl-js-button" @click="getMyLocation()">
-                      <i class="material-icons">location_searching</i>
+                    <button class="mdl-button mdl-js-button" >
+                      <a v-link="{ path: '/list'}"><i class="material-icons">view_list</i></a>
+                    </button>
+                    <button class="mdl-button mdl-js-button" >
+                      <a v-link="{ path: '/map'}"><i class="material-icons">map</i></a>
                     </button>
                     <button class="mdl-button mdl-js-button">
-                      <a v-link="{ path: '/list'}"><i class="material-icons">search</i></a>
+                      <a ><i class="material-icons">search</i></a>
                     </button>
                     <button class="mdl-button mdl-js-button">
-                      <a v-link="{ path: '/list'}"><i class="material-icons">share</i></a>
+                      <a ><i class="material-icons">share</i></a>
                     </button>
                 </div>
             </div>
