@@ -1,15 +1,27 @@
 <template>
 
         <div class="wrapper">
-        
+
             <router-view
               transition-mode="out-in">
              </router-view>
 
             <div class="footer">
                 <div class="toggle">
-                    <div><a v-link="{ path: '/list'}">List</a></div>
-                    <div><a v-link="{ path: '/map'}">Map</a></div>
+                    <!-- <div><a v-link="{ path: '/list'}">List</a></div>
+                    <div><a v-link="{ path: '/map'}">Map</a></div> -->
+                    <button class="mdl-button mdl-js-button">
+                      <a v-link="{ path: '/list'}"><i class="material-icons">home</i></a>
+                    </button>
+                    <button class="mdl-button mdl-js-button">
+                      <a v-link="{ path: '/list'}"><i class="material-icons">location_searching</i></a>
+                    </button>
+                    <button class="mdl-button mdl-js-button">
+                      <a v-link="{ path: '/list'}"><i class="material-icons">search</i></a>
+                    </button>
+                    <button class="mdl-button mdl-js-button">
+                      <a v-link="{ path: '/list'}"><i class="material-icons">share</i></a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -60,7 +72,7 @@
     background: #eee;
 }
 .footer {
-    height: 50px;
+    height: 40px;
     background: #eee;
 }
 
@@ -72,6 +84,7 @@
 .toggle{
     width: 100%;
     position: relative;
+    text-align: center;
 }
 
 

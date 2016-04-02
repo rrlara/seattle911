@@ -72,8 +72,8 @@
                     "source": "single-point",
                     "type": "circle",
                     "paint": {
-                      "circle-radius": 5,
-                      "circle-color": "#FF0000"
+                      "circle-radius": 8,
+                      "circle-color": "#607d8b"
                     }
                   });
 
@@ -120,6 +120,10 @@
   width:100%;
   height: 100px;
   }
+
+  .mapboxgl-ctrl-attrib{
+    display: none !important;
+}
 
     
 </style>
