@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --content-base public --inline --hot"
+    "dev": "webpack-dev-server --content-base public --inline --hot",
+    "build": "NODE_ENV=production webpack --progress --hide-modules"
   },
   "author": "",
   "license": "ISC",
