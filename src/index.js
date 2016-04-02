@@ -9,9 +9,11 @@ import Map from './Map/index.vue'
 
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
+import VueMoment from 'vue-moment'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(require('vue-moment'));
 
 Vue.config.debug = true
 

@@ -50,7 +50,7 @@
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v8',
                 center: [-122.4093842,47.6011062],
-                zoom: 12
+                zoom: 15
             });
 
                 map.on('style.load', function () {
@@ -72,7 +72,7 @@
                     "source": "single-point",
                     "type": "circle",
                     "paint": {
-                      "circle-radius": 8,
+                      "circle-radius": 6,
                       "circle-color": "#607d8b"
                     }
                   });
@@ -101,7 +101,14 @@
         },
         methods: {
             
+        },
+        events: {
+        'get-my-location': function (msg) {
+          
+          map.addControl(new mapboxgl.Geolocate({position: 'bottom-left'}));
+
         }
+  }
 
         
     }
@@ -118,7 +125,7 @@
 #map { 
   position:relative; 
   width:100%;
-  height: 100px;
+  height: 150px;
   }
 
   .mapboxgl-ctrl-attrib{

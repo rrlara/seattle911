@@ -9,8 +9,12 @@
     <div class="content">
         <div class="inner">
             
-          <div class="mobile-list-item" v-for="item in list.features" @click="pushToDetails(item), showDetails = true">{{item.properties.Address}}</div>
-
+          <div class="mobile-list-item" v-for="item in list.features" @click="pushToDetails(item), showDetails = true">
+          {{item.properties.Address}}<br>
+          {{ item.properties.DateTime | moment "from" "now"}}<br>
+          {{ item.properties.CallStatus}}<br>
+          {{ item.properties.Type}}
+          </div>
         </div>
     </div>
 </template>
@@ -76,7 +80,6 @@
     -ms-flex-direction: row;
     flex-direction: row;
     padding: 10px;
-    margin: 30px 0;
     border-top: 1px solid #e3e3e3;
 }
     

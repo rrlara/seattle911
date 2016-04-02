@@ -30,6 +30,7 @@
   "dependencies": {
     "vue": "^1.0.18",
     "vue-resource": "^0.1.17",
-    "vue-router": "^0.7.5"
+    "vue-router": "^0.7.5",
+    "vue-moment": "1.0.7"
   }
 }

@@ -11,10 +11,10 @@
                     <!-- <div><a v-link="{ path: '/list'}">List</a></div>
                     <div><a v-link="{ path: '/map'}">Map</a></div> -->
                     <button class="mdl-button mdl-js-button">
-                      <a v-link="{ path: '/list'}"><i class="material-icons">home</i></a>
+                      <a v-link="{ path: '/home'}"><i class="material-icons">home</i></a>
                     </button>
-                    <button class="mdl-button mdl-js-button">
-                      <a v-link="{ path: '/list'}"><i class="material-icons">location_searching</i></a>
+                    <button class="mdl-button mdl-js-button" @click="getMyLocation()">
+                      <i class="material-icons">location_searching</i>
                     </button>
                     <button class="mdl-button mdl-js-button">
                       <a v-link="{ path: '/list'}"><i class="material-icons">search</i></a>
@@ -34,15 +34,27 @@
     export default {
         name: "App",
 
-        ready() {
+        created(){
             this.getData();
         },
-        methods:{
+
+        ready() {
+            // this.getData();
+            var self = this;
+            
+            setInterval(function() {
+                self.getData();
+            }, 60000);
+        },
+        methods: {
             // note that we need `this` here so we can clear out the value
             // once the ADDTASK mutation has been dispatched, so we need to
             // use a traditional function structure instead of an arrow function.
             getData: function() {
                 store.dispatch('GETCALLDATA')
+            },
+            getMyLocation: function(){
+                this.$broadcast('get-my-location')
             }
         }
     
@@ -102,13 +114,17 @@
 }
 
 .details.visible{
-    height: 100px;
+    height: 150px;
     width: 100%;
 
     -webkit-transition: height .4s cubic-bezier(0.25, .8, .25, 1);
     -moz-transition: height .4s cubic-bezier(0.25, .8, .25, 1);
     -o-transition: height .4s cubic-bezier(0.25, .8, .25, 1);
     transition: height .4s cubic-bezier(0.25, .8, .25, 1);
+}
+
+button i{
+    color: #fffff;
 }
 
  
