@@ -20,7 +20,6 @@
 </template>
 <script>
     import store from '../vuex/store.js'
-    import GeoJSON from '../lib/geojson'
     import details from './details.vue'
 
     var map;

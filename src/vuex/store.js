@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
+import Http from '../services/http'
+
 Vue.use(Vuex)
 
 import VueResource from 'vue-resource'

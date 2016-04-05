@@ -21,9 +21,6 @@
 
           'detailToMap': function(){
 
-            // source = new mapboxgl.GeoJSONSource({
-            //     data: this.detailToMap
-            // });
 
             source.setData(this.detailToMap);
 
@@ -49,7 +46,7 @@
             map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v8',
-                center: [-122.4093842,47.6011062],
+                center: [self.detailToMap.geometry.coordinates[0],self.detailToMap.geometry.coordinates[1]],
                 zoom: 16
             });
 
@@ -61,11 +58,7 @@
 
                     map.addSource('single-point', source);
 
-                    map.flyTo({
-                        center: [self.detailToMap.geometry.coordinates[0],self.detailToMap.geometry.coordinates[1]]
-                    });
-
-                    // map.addSource('drone', source);
+                
 
                 map.addLayer({
                     "id": "point",
@@ -78,9 +71,6 @@
                   });
 
                 
-                // map.getSource('single-point').setData(self.tasks);
-
-                // self.getMoreCalls();
 
 
             }); 
@@ -125,7 +115,7 @@
 #map { 
   position:relative; 
   width:100%;
-  height: 150px;
+  height: 250px;
   }
 
   .mapboxgl-ctrl-attrib{

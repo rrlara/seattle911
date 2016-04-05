@@ -117,7 +117,7 @@
 }
 
 .details.visible{
-    height: 150px;
+    height: 250px;
     width: 100%;
 
     -webkit-transition: height .4s cubic-bezier(0.25, .8, .25, 1);

@@ -23,9 +23,6 @@
     export default {
         name: "Map",
 
-        data(){
-            
-        },
         watch:{
 
             "tasks": function(){
@@ -75,7 +72,7 @@
                 
                 map.getSource('single-point').setData(self.tasks);
 
-                self.getMoreCalls();
+                // self.getMoreCalls();
 
 
             }); 
