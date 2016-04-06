@@ -45,7 +45,7 @@
             map = new mapboxgl.Map({
                 container: 'map-large',
                 style: 'mapbox://styles/mapbox/streets-v8',
-                center: [-122.4093842,47.6011062],
+                center: [-122.3037767,47.6010821],
                 zoom: 10
             });
 
@@ -64,7 +64,7 @@
                     "source": "single-point",
                     "type": "circle",
                     "paint": {
-                      "circle-radius": 4,
+                      "circle-radius": 7,
                       "circle-color": "#575757"
                     }
                   });

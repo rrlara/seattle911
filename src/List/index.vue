@@ -57,7 +57,6 @@
             },
             updateDistances: function(call){
                 var self = this;
-                console.log(call);
                 var callLocation = {
                     latitude: call.geometry.coordinates[1],
                     longitude: call.geometry.coordinates[0]
