@@ -13,7 +13,8 @@
           {{item.properties.Address}}<br>
           {{ item.properties.DateTime | moment "from" "now"}}<br>
           {{ item.properties.CallStatus}}<br>
-          {{ item.properties.Type}}
+          {{ item.properties.Type}}<br>
+          <span v-if="myLocation">&nbsp;{{updateDistances(item)}}</span>
           </div>
         </div>
     </div>
@@ -21,6 +22,7 @@
 <script>
     import store from '../vuex/store.js'
     import details from './details.vue'
+    import Distance from '../utils/Distance'
 
     var map;
 
@@ -33,7 +35,8 @@
 
         data () {
           return {
-            showDetails: false
+            showDetails: false,
+            myLocation: null
           }
         },
 
@@ -51,8 +54,61 @@
         methods: {
             pushToDetails: (item) => {
                 store.dispatch('PUSHTODETAILS', item)
+            },
+            updateDistances: function(call){
+                var self = this;
+                console.log(call);
+                var callLocation = {
+                    latitude: call.geometry.coordinates[1],
+                    longitude: call.geometry.coordinates[0]
+                }
+
+                var myLocationLoc = self.myLocation
+
+                return Distance.getDistances(callLocation, this.myLocation) + ' km'
+                // var orale = Distance.getDistances(callLocation, myLocationLoc);
+                // console.log(orale);
             }
+        },
+        
+        events: {
+        'get-my-location': function () {
+          
+                
+                
+                var self = this;
+
+                function geo_success(position) {
+
+                    var loc = {
+                        latitude: null,
+                        longitude: null
+                    }
+
+                    loc.latitude = position.coords.latitude
+                    loc.longitude = position.coords.longitude
+
+                    self.myLocation = loc
+                  
+                }
+
+                function geo_error() {
+                  alert("Sorry, no position available.");
+                }
+
+                var geo_options = {
+                  enableHighAccuracy: true, 
+                  maximumAge        : 30000, 
+                  timeout           : 27000
+                };
+
+                // var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+                var wpid = navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
+                
+                
+
         }
+    }
 
         
     }

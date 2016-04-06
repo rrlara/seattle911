@@ -70,9 +70,6 @@
                     }
                   });
 
-                
-
-
             }); 
 
             // Listen for clicks on features & pass data to templates
@@ -91,14 +88,7 @@
         },
         methods: {
             
-        },
-        events: {
-        'get-my-location': function (msg) {
-          
-          map.addControl(new mapboxgl.Geolocate({position: 'bottom-left'}));
-
         }
-  }
 
         
     }

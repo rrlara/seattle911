@@ -1,6 +1,6 @@
 //var Cities = require('../constants/Cities');
 
-var POI = require('../constants/poi');
+// var POI = require('../constants/poi');
 
 module.exports = {
     // http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
@@ -20,10 +20,15 @@ module.exports = {
         var d = R * c;
         return d;
     },
-    getDistances: function(data) {
+    getDistances: function(call, data) {
         var self = this;
-        return POI.map(function(city) {
-            return {name: city.CapitalName, distance: Math.round(self.calulateDistances(city.latitude, city.longitude, data.latitude, data.longitude) * 100) / 100};
-        });
+        // return POI.map(function(city) {
+        //     return {name: city.CapitalName, distance: Math.round(self.calulateDistances(city.latitude, city.longitude, data.latitude, data.longitude) * 100) / 100};
+        // });
+
+        // return {distance: Math.round(self.calulateDistances(call.latitude, call.longitude, data.latitude, data.longitude) * 100) / 100};
+
+        return Math.round(self.calulateDistances(call.latitude, call.longitude, data.latitude, data.longitude) * 100) / 100;
+
     }
 };

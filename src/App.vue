@@ -20,7 +20,7 @@
                       <a v-link="{ path: '/map'}"><i class="material-icons">map</i></a>
                     </button>
                     <button class="mdl-button mdl-js-button">
-                      <a ><i class="material-icons">search</i></a>
+                      <a ><i class="material-icons" @click="getMyLocation()">near_me</i></a>
                     </button>
                     <button class="mdl-button mdl-js-button">
                       <a ><i class="material-icons">share</i></a>
