@@ -17,7 +17,7 @@ module.exports = {
             Math.sin(dLon/2) * Math.sin(dLon/2);
 
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c;
+        var d = (R * c) * 0.621371;
         return d;
     },
     getDistances: function(call, data) {

@@ -65,7 +65,7 @@
 
                 var myLocationLoc = self.myLocation
 
-                return Distance.getDistances(callLocation, this.myLocation) + ' km'
+                return Distance.getDistances(callLocation, this.myLocation) + ' mi'
                 // var orale = Distance.getDistances(callLocation, myLocationLoc);
                 // console.log(orale);
             }
