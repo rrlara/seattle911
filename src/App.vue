@@ -21,6 +21,7 @@
                     </button>
                     <button class="mdl-button mdl-js-button">
                       <a ><i class="material-icons" @click="getMyLocation()">near_me</i></a>
+                       <!-- <a ><i class="material-icons">location_searching</i></a> -->
                     </button>
                     <button class="mdl-button mdl-js-button">
                       <a ><i class="material-icons">share</i></a>
@@ -37,8 +38,18 @@
     export default {
         name: "App",
 
+          computed: {
+            currentLocation: () => { 
+                return store.state.myCurrentLocation
+            }
+        },
+
         created(){
+            
             this.getData();
+
+            this.getMyLocationFromStore();
+
         },
 
         ready() {
@@ -48,6 +59,8 @@
             setInterval(function() {
                 self.getData();
             }, 60000);
+
+            
         },
         methods: {
             // note that we need `this` here so we can clear out the value
@@ -58,6 +71,9 @@
             },
             getMyLocation: function(){
                 this.$broadcast('get-my-location')
+            },
+            getMyLocationFromStore: function(){
+                store.dispatch('GETMYLOCATION')
             }
         }
     

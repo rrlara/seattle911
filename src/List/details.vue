@@ -25,7 +25,8 @@
             source.setData(this.detailToMap);
 
             map.flyTo({
-                center: [this.detailToMap.geometry.coordinates[0],this.detailToMap.geometry.coordinates[1]]
+                center: [this.detailToMap.geometry.coordinates[0],this.detailToMap.geometry.coordinates[1]],
+                zoom: 14
             });
 
           }
@@ -47,7 +48,7 @@
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v8',
                 center: [self.detailToMap.geometry.coordinates[0],self.detailToMap.geometry.coordinates[1]],
-                zoom: 16
+                zoom: 15
             });
 
                 map.on('style.load', function () {

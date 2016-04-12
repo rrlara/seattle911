@@ -9,12 +9,12 @@
     <div class="content">
         <div class="inner">
             
-          <div class="mobile-list-item" v-for="item in list.features" @click="pushToDetails(item), showDetails = true">
+          <div class="mobile-list-item" v-for="item in list.features" @click="pushToDetails(item), showDetails = true" :class="item.properties.IncidentNumber == activeDetail ? 'active': ''">
           {{item.properties.Address}}<br>
           {{ item.properties.DateTime | moment "from" "now"}}<br>
           {{ item.properties.CallStatus}}<br>
           {{ item.properties.Type}}<br>
-          <span v-if="myLocation">&nbsp;{{updateDistances(item)}}</span>
+          <span v-if="currentLocation">&nbsp;{{updateDistances(item)}}</span>
           </div>
         </div>
     </div>
@@ -44,6 +44,15 @@
         computed: {
             list: () => { 
                 return store.state.calls
+            },
+            currentLocation: () => { 
+                return store.state.myCurrentLocation
+            },
+            activeDetail: () => { 
+                if(store.state.detailsData){
+                    return store.state.detailsData.properties.IncidentNumber
+                }
+                
             }
         },
         ready() {
@@ -62,52 +71,15 @@
                     longitude: call.geometry.coordinates[0]
                 }
 
-                var myLocationLoc = self.myLocation
-
-                return Distance.getDistances(callLocation, this.myLocation) + ' mi'
+                return Distance.getDistances(callLocation, this.currentLocation) + ' mi'
                 // var orale = Distance.getDistances(callLocation, myLocationLoc);
                 // console.log(orale);
             }
         },
         
         events: {
-        'get-my-location': function () {
-          
-                
-                
-                var self = this;
-
-                function geo_success(position) {
-
-                    var loc = {
-                        latitude: null,
-                        longitude: null
-                    }
-
-                    loc.latitude = position.coords.latitude
-                    loc.longitude = position.coords.longitude
-
-                    self.myLocation = loc
-                  
-                }
-
-                function geo_error() {
-                  alert("Sorry, no position available.");
-                }
-
-                var geo_options = {
-                  enableHighAccuracy: true, 
-                  maximumAge        : 30000, 
-                  timeout           : 27000
-                };
-
-                // var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
-                var wpid = navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
-                
-                
 
         }
-    }
 
         
     }
@@ -135,6 +107,10 @@
     flex-direction: row;
     padding: 10px;
     border-top: 1px solid #e3e3e3;
+}
+
+.active{
+    border-left: 4px solid rgb(255,110,64);
 }
     
 </style>

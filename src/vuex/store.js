@@ -14,7 +14,8 @@ import GeoJSON from '../lib/geojson'
 const state = {
     calls: [],
     showDetails: false,
-    detailsData: null
+    detailsData: null,
+    myCurrentLocation: null
 
 }
 
@@ -59,6 +60,41 @@ const mutations = {
           }, function (response) {
               // error callback
           });
+    },
+    GETMYLOCATION: () => {
+        // GET request
+          // var self = this;
+
+          function geo_success(position) {
+
+            var self = this;
+
+                    var loc = {
+                        latitude: null,
+                        longitude: null
+                    }
+
+                    loc.latitude = position.coords.latitude
+                    loc.longitude = position.coords.longitude
+
+                    console.log("log: ", loc);
+
+                    state.myCurrentLocation = loc
+                  
+                }
+
+                function geo_error() {
+                  alert("Sorry, no position available.");
+                }
+
+                var geo_options = {
+                  enableHighAccuracy: true, 
+                  maximumAge        : 30000, 
+                  timeout           : 27000
+                };
+
+                var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+                // var wpid = navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);            
     }
 
 }
