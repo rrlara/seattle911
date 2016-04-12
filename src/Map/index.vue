@@ -1,11 +1,14 @@
 <template>
-    <!-- <div class="task-list" v-for="task in tasks"> -->
-        <!-- <task :task="task" :store="store"></task> -->
-        <!-- <div class="mobile-map">
-        
-        <div id='map'></div>
 
-        </div> -->
+    <!-- <div class="header">
+            <div class="details" :class="{'visible': routeData }">
+              <ul class="fruits">
+                <li>Distance: {{routeData.routes[0].distance}}</li>
+                <li>Duration: {{routeData.routes[0].duration}}</li>
+              </ul>
+            </div>
+    </div> -->
+
         <div class="content">
         <div class="inner">
             
@@ -18,12 +21,20 @@
     import store from '../vuex/store.js'
     import GeoJSON from '../lib/geojson'
 
+    import MapboxClient from 'mapbox'
+
     var map;
 
     var currentLocationPoint;
 
     export default {
         name: "Map",
+
+        data (){
+          return {
+            routeData: null
+          }
+        },
 
         watch:{
 
@@ -64,6 +75,7 @@
                 zoom: 10
             });
 
+            var mapboxClient = new MapboxClient('pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA');
 
                 map.on('style.load', function () {
 
@@ -90,10 +102,10 @@
 
                 
                 // create a GeoJSON point to serve as a starting point
-              var point = {
-                "type": "Point",
-                "coordinates": [-122.3037767,47.6010821]
-              };
+                var point = {
+                  "type": "Point",
+                  "coordinates": [-122.3037767,47.6010821]
+                };
 
               
 
@@ -117,12 +129,49 @@
                         }
                       }); 
 
-                      map.getSource('point').setData(point);           
+                      map.getSource('point').setData(point); 
+
+
+
+
+
+
+                      map.addSource('route', {
+                        "type": "geojson",
+                        "data": {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [-122.48369693756104, 47.83381888486939]
+                             ]
+                        }
+                    }
+                    });
+
+                    map.addLayer({
+                        "id": "route",
+                        "source": "route",
+                        "type": "line",
+                        "layout": {
+                            "line-join": "round",
+                            "line-cap": "round"
+                        },
+                        "paint": {
+                            "line-color": "#ff6e40",
+                            "line-width": 4
+                        }
+                      });
+
+
+                    map.getSource('route').setData(self.tasks);          
 
             }); 
 
             // Listen for clicks on features & pass data to templates
                 map.on('click', function (e) {
+                  var selfagain = self;
                     // Use queryRenderedFeatures to get features at a click event's point
                     // Use layer option to avoid getting results from other layers
                     var features = map.queryRenderedFeatures(e.point, { layers: ['point'] });
@@ -131,7 +180,29 @@
                     if (features.length) {
                         // Get coordinates from the symbol and center the map on those coordinates
                         map.flyTo({center: features[0].geometry.coordinates});
+                        console.log("location of point: ", features[0].geometry.coordinates);
                     }
+
+
+                    // With options
+                    mapboxClient.getDirections([
+                      { latitude: selfagain.currentLocation.latitude, longitude: selfagain.currentLocation.longitude },
+                      { latitude: features[0].geometry.coordinates[1], longitude: features[0].geometry.coordinates[0] }
+                    ], {
+                      profile: 'mapbox.walking',
+                      instructions: 'html',
+                      alternatives: false,
+                      geometry: 'geojson'
+                    }, function(err, results) {
+                      console.log("results: ", results);
+
+                      selfagain.routeData = results;
+
+                      map.getSource('route').setData(results.routes[0].geometry);
+
+                    });
+
+
                 });
        
         },
