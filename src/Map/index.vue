@@ -20,12 +20,24 @@
 
     var map;
 
+    var currentLocationPoint;
+
     export default {
         name: "Map",
 
         watch:{
 
-            "tasks": function(){
+            "currentLocation": function(){
+
+              var self = this;
+
+              var point = {
+                "type": "Point",
+                "coordinates": [self.currentLocation.longitude, self.currentLocation.latitude]
+              };
+
+              map.getSource('point').setData(point);
+
 
             }
 
@@ -34,6 +46,9 @@
         computed: {
             tasks: () => { 
                 return store.state.calls
+            },
+            currentLocation: () => { 
+                return store.state.myCurrentLocation
             }
         },
         ready() {
@@ -49,15 +64,16 @@
                 zoom: 10
             });
 
+
                 map.on('style.load', function () {
 
-                    map.addSource('single-point', {
-                        "type": "geojson",
-                        "data": {
-                          "type": "FeatureCollection",
-                          "features": []
-                        }
-                      });
+                map.addSource('single-point', {
+                    "type": "geojson",
+                    "data": {
+                      "type": "FeatureCollection",
+                      "features": []
+                    }
+                  });
 
                 map.addLayer({
                     "id": "point",
@@ -69,11 +85,39 @@
                     }
                   });
 
-                
+
                 map.getSource('single-point').setData(self.tasks);
 
-                // self.getMoreCalls();
+                
+                // create a GeoJSON point to serve as a starting point
+              var point = {
+                "type": "Point",
+                "coordinates": [-122.3037767,47.6010821]
+              };
 
+              
+
+                    map.addSource('point', {
+                    "type": "geojson",
+                    "data": {
+                      "type": "FeatureCollection",
+                      "features": []
+                    }
+                  });
+
+                
+
+                    map.addLayer({
+                        "id": "myLocation",
+                        "source": "point",
+                        "type": "circle",
+                        "paint": {
+                          "circle-radius": 4,
+                          "circle-color": "#f00a0a"
+                        }
+                      }); 
+
+                      map.getSource('point').setData(point);           
 
             }); 
 

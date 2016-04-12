@@ -61,15 +61,15 @@
 
                 
 
-                map.addLayer({
-                    "id": "point",
-                    "source": "single-point",
-                    "type": "circle",
-                    "paint": {
-                      "circle-radius": 6,
-                      "circle-color": "#607d8b"
-                    }
-                  });
+                    map.addLayer({
+                        "id": "point",
+                        "source": "single-point",
+                        "type": "circle",
+                        "paint": {
+                          "circle-radius": 6,
+                          "circle-color": "#607d8b"
+                        }
+                      });
 
             }); 
 
