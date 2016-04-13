@@ -1,13 +1,14 @@
 <template>
 
-    <!-- <div class="header">
-            <div class="details" :class="{'visible': routeData }">
-              <ul class="fruits">
-                <li>Distance: {{routeData.routes[0].distance}}</li>
-                <li>Duration: {{routeData.routes[0].duration}}</li>
+    <div class="header">
+            <div class="routeDetails" :class="{'visible': showRouteDetails }">
+              <ul class="fruits" v-if="routeData">
+                <li>Distance: {{routeData.routes[0].distance}} meters</li>
+                <li>Duration: {{routeData.routes[0].duration}} secs</li>
+                <li>Summary: {{routeData.routes[0].summary}}</li>
               </ul>
             </div>
-    </div> -->
+    </div>
 
         <div class="content">
         <div class="inner">
@@ -32,7 +33,8 @@
 
         data (){
           return {
-            routeData: null
+            routeData: null,
+            showRouteDetails: false
           }
         },
 
@@ -177,11 +179,11 @@
                     var features = map.queryRenderedFeatures(e.point, { layers: ['point'] });
                     // if there are features within the given radius of the click event,
                     // fly to the location of the click event
-                    if (features.length) {
-                        // Get coordinates from the symbol and center the map on those coordinates
-                        map.flyTo({center: features[0].geometry.coordinates});
-                        console.log("location of point: ", features[0].geometry.coordinates);
-                    }
+                    // if (features.length) {
+                    //     // Get coordinates from the symbol and center the map on those coordinates
+                    //     map.flyTo({center: features[0].geometry.coordinates});
+                    //     console.log("location of point: ", features[0].geometry.coordinates);
+                    // }
 
 
                     // With options
@@ -189,7 +191,7 @@
                       { latitude: selfagain.currentLocation.latitude, longitude: selfagain.currentLocation.longitude },
                       { latitude: features[0].geometry.coordinates[1], longitude: features[0].geometry.coordinates[0] }
                     ], {
-                      profile: 'mapbox.walking',
+                      profile: 'mapbox.driving',
                       instructions: 'html',
                       alternatives: false,
                       geometry: 'geojson'
@@ -197,6 +199,7 @@
                       console.log("results: ", results);
 
                       selfagain.routeData = results;
+                      selfagain.showRouteDetails = true
 
                       map.getSource('route').setData(results.routes[0].geometry);
 
@@ -255,6 +258,25 @@
   height: 100%;
   
   }
+
+  ul.fruits
+{
+list-style-type:none;
+padding:0px;
+margin:0px;
+}
+
+ul.fruits li
+{ 
+padding-left:14px;
+}
+
+.routeDetails.visible {
+    height: 90px;
+    width: 100%;
+    -webkit-transition: height .4s cubic-bezier(0.25, .8, .25, 1);
+    transition: height .4s cubic-bezier(0.25, .8, .25, 1);
+}
 
 
     
